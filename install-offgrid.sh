@@ -32,3 +32,21 @@ else
   
   printf "\n w1_gpio and w1_therm modules enabled. \n"
 fi
+
+
+RRD_INSTALLED=$(find /var/lib/dpkg -name rrdtool*)
+if [[ "$RRD_INSTALLED" == "" ]]
+then
+  printf "\n\n Installing RRD tool ...\n"
+  # Install Apache
+  apt-get install rrdtool php5-rrd -y
+
+  RRD_INSTALLED=$(find /var/lib/dpkg -name rrdtool*)
+    if [[ "$RRD_INSTALLED" == "" ]]
+    then
+      printf "\n\n EXITING : RRD tool installation FAILED\n"
+      exit 1
+    fi
+else
+  printf "\n\n RRD tool is already installed. \n"
+fi
